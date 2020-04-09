@@ -78,9 +78,40 @@ class CarListView(ListView):
     # 此方法可以得到传递给模板的context，可以再次修改context内容
     def get_context_data(self, **kwargs):
         context = super(CarListView, self).get_context_data(**kwargs)
+        pagination_data = self.get_pagination_data(context.get('paginator'), context.get('page_obj'))
+        context.update(pagination_data)
         return context
 
     # 此方法类似于SQL的WHERE条件
     def get_queryset(self):
         # return Car.objects.filter(owner__gte=10)
         return Car.objects.all()
+
+    # 分页算法
+    def get_pagination_data(self, paginator, page_obj, around_count=2):
+        current_page = page_obj.number
+        num_pages = paginator.num_pages
+
+        left_has_more = False
+        right_has_more = True
+
+        if current_page <= around_count + 2:
+            left_pages = range(1, current_page)
+        else:
+            left_pages = range(current_page - around_count, current_page)
+            left_has_more = True
+
+        if current_page >= num_pages - around_count + 1:
+            right_pages = range(current_page+1, num_pages+1)
+        else:
+            right_pages = range(current_page+1, current_page+around_count+1)
+            right_has_more = True
+
+        return {
+            'left_pages': left_pages,
+            'left_has_more': left_has_more,
+            'right_pages': right_pages,
+            'right_has_more': right_has_more,
+            'current_page': current_page,
+            'num_pages': num_pages
+        }
