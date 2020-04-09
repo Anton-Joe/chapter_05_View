@@ -18,6 +18,8 @@ from django.urls import path
 from article import views
 urlpatterns = [
     path('', views.index),
+    path('login', views.login, name='login'),
+    path('ProfileView/', views.ProfileView.as_view(), name='ProfileView'),
     path('add_article', views.add_article, name='add_article'),
     path('download_csv', views.download_csv, name='download_csv'),
     path('download_csv_with_template', views.download_csv_with_template, name='download_csv_with_template'),

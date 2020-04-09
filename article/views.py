@@ -1,10 +1,11 @@
 # -*-coding:utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from .models import Article, Car
 from django.views.decorators.http import require_GET, require_http_methods
 from django.http import HttpResponse
 from django.template import loader
-from django.views.generic import ListView
+from django.views.generic import ListView, View
+from django.utils.decorators import method_decorator
 import csv, codecs
 # Create your views here.
 
@@ -59,6 +60,31 @@ def add_car(request):
         cars.append(car)
     Car.objects.bulk_create(cars)
     return HttpResponse('车辆信息添加成功')
+
+
+def login(request):
+    return HttpResponse('登录页面')
+
+
+def login_required(func):
+    def wrapper(request, *args, **kwargs):
+        username = request.GET.get('username')
+        print(username)
+        if username:
+            return func(request, *args, **kwargs)
+        else:
+            return redirect(reverse('login'))
+    return wrapper
+
+
+@method_decorator([login_required], name='dispatch')
+class ProfileView(View):
+    def get(self, request):
+        return HttpResponse("个人中心页面")
+
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ProfileView, self).dispatch(request, *args, **kwargs)
 
 
 class CarListView(ListView):
