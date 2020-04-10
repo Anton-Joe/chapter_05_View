@@ -30,7 +30,6 @@ urlpatterns = [
     path('car_list', views.CarListView.as_view(), name='car_list'),
     path('board_view', form_view.BoardView.as_view(), name='board_view'),
     path('register_view', register_view.RegisterView.as_view(), name='register_view'),
-    path('modelform_view/', view3.modelform_view, name='modelFrom_View'),
-
-
+    path('modelform_view', view3.modelform_view, name='modelFrom_View'),
+    path('modelform_save_view', view3.modelform_save_view, name='modelform_save_view'),
 ]
