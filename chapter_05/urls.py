@@ -18,6 +18,7 @@ from django.urls import path
 from article import views
 from form_demo_app import views as form_view
 from form_demo_register_app import views as register_view
+from modelForm_demo import views as view3
 urlpatterns = [
     path('', views.index),
     path('login', views.login, name='login'),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('car_list', views.CarListView.as_view(), name='car_list'),
     path('board_view', form_view.BoardView.as_view(), name='board_view'),
     path('register_view', register_view.RegisterView.as_view(), name='register_view'),
+    path('modelform_view/', view3.modelform_view, name='modelFrom_View'),
 
 
 ]
