@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from article import views
+from form_demo_app import views as form_view
 urlpatterns = [
     path('', views.index),
     path('login', views.login, name='login'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('download_csv_with_template', views.download_csv_with_template, name='download_csv_with_template'),
     path('add_car', views.add_car, name='add_car'),
     path('car_list', views.CarListView.as_view(), name='car_list'),
+    path('board_view', form_view.BoardView.as_view(), name='board_view'),
 
 ]
