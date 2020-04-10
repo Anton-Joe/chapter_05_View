@@ -20,5 +20,6 @@ class RegisterView(View):
             return HttpResponse('注册成功')
         else:
             print(form.errors.get_json_data())
+            print(form.get_errors())
             return HttpResponse('注册出错')
 
