@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book,User2
+from .models import Book, User2, Player
 
 
 class BookForm(forms.ModelForm):
@@ -38,3 +38,15 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User2
         fields = ['username']
+
+
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = '__all__'
+        error_messages = {
+            'text_file':  {
+                'invalid_extension': '文件后缀名不正确！'
+            }
+        }
+

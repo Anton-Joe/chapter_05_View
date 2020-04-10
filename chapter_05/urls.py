@@ -32,4 +32,5 @@ urlpatterns = [
     path('register_view', register_view.RegisterView.as_view(), name='register_view'),
     path('modelform_view', view3.modelform_view, name='modelFrom_View'),
     path('modelform_save_view', view3.modelform_save_view, name='modelform_save_view'),
+    path('PlayerFormView', view3.PlayerFormView.as_view(), name='PlayerFormView'),
 ]
